@@ -1,0 +1,29 @@
+.ranking{
+    margin-top: 20px;
+}
+
+.ranking-header,
+.ranking-body{
+    text-align: center;
+
+    border-bottom: 1px solid #6b717e;
+}
+
+.ranking-img-place{
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+
+.ranking-coin-place{
+    display: inline-block;
+    width: 77.5%;
+    height: 100%;
+    text-align: center;
+}
+
+.ranking-coin{
+    font-size: 48px;
+    font-weight: bold;
+    font-variant: small-caps;
+}
