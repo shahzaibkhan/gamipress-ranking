@@ -27,7 +27,8 @@
         // Receive and sanitize input data
         $a = shortcode_atts(array(
             "type" => "connects",
-            "limit" => null
+            "limit" => null,
+            "order" => "DESC"
         ), $atts);
 
         $type = trim(strtolower($a["type"]));
@@ -37,7 +38,7 @@
         // Query for the leaderboard
         global $wpdb;
 
-        $sql = "SELECT user.display_name AS name, SUM(game.points) AS points, game.points_type AS type FROM wppc_gamipress_user_earnings AS game INNER JOIN wppc_users AS user ON game.user_id = user.ID WHERE game.points_type = '{$type}' GROUP BY name, type ORDER BY points DESC";
+        $sql = "SELECT user.display_name AS name, SUM(game.points) AS points, game.points_type AS type FROM wppc_gamipress_user_earnings AS game INNER JOIN wppc_users AS user ON game.user_id = user.ID WHERE game.points_type = '{$type}' GROUP BY name, type ORDER BY points {$order}";
 
         if(!empty($limit)){
             $sql .= " LIMIT {$limit}";
@@ -45,14 +46,9 @@
 
         if($result = $wpdb->get_results($sql, ARRAY_A)){
 
-            $img = plugins_url()."/../uploads/2018/10/coin_{$type}-50x50.png";
-
             // Setup the ranking table
             $leaderboard = "
                 <div>
-                    <div class='ranking-img-place'>
-                        <img src='{$img}'>
-                    </div>
                     <div class='ranking-coin-place'>
                         <span class='ranking-coin'>{$type}</span>
                     </div>
